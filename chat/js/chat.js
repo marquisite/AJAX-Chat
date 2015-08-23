@@ -1352,6 +1352,7 @@ var ajaxChat = {
 		}
 		this.blinkOnNewMessage(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip);
 		this.playSoundOnNewMessage(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip);
+		this.notificationOnNewMessage(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip);
 		return true;
 	},
 
@@ -1373,6 +1374,48 @@ var ajaxChat = {
 		}
 		return false;
 	},
+	
+	notificationOnNewMessage: function(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip) {
+		var messageParts;
+		if(this.settings['whisperNotification'] && this.lastID && !this.channelSwitch) {
+			messageParts = messageText.split(' ');
+			switch(userID) {
+				case this.userID:
+					break;
+				default:
+					switch(messageParts[0]) {
+						case '/privmsg':
+							// Received Whisper
+							  if (Notification.permission === "granted") {
+								var msg = messageParts.slice(1).join(' ')
+								var notification = new Notification("AJAX Chat", {
+										body:"Whisper: " + messageParts.slice(1).join(' '),
+										tag:"AJAXChat"
+										});
+							  }
+							
+							  else if (Notification.permission !== 'denied') {
+								Notification.requestPermission(function (permission) {
+							
+								  if(!('permission' in Notification)) {
+									Notification.permission = permission;
+								  }
+							
+								  if (permission === "granted") {
+									var notification = new Notification("AJAX Chat", {
+										body:"Whisper: " + messageParts.slice(1).join(' '),
+										tag:"AJAXChat"
+										});
+								  }
+								});
+							  }
+							break;
+						default:
+							// Received Message
+					}
+					break;
+			}
+		}
 
 	blinkOnNewMessage: function(dateObject, userID, userName, userRole, messageID, messageText, channelID, ip) {
 		if(this.settings['blink'] && this.lastID && !this.channelSwitch && userID !== this.userID) {

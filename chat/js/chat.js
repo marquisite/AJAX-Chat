@@ -1389,7 +1389,7 @@ var ajaxChat = {
 							  if (Notification.permission === "granted") {
 								var msg = messageParts.slice(1).join(' ')
 								var notification = new Notification("AJAX Chat whisper from " + userName, {
-										body: messageParts.slice(1).join(' '),
+										body: this.replaceCustomText(messageParts.slice(1).join(' ')),
 										tag:"AJAXChat"
 										});
 							  }
@@ -1403,7 +1403,7 @@ var ajaxChat = {
 							
 								  if (permission === "granted") {
 									var notification = new Notification("AJAX Chat whisper from " + userName, {
-										body:"Whisper: " + messageParts.slice(1).join(' '),
+										body: this.replaceCustomText(messageParts.slice(1).join(' ')),
 										tag:"AJAXChat"
 										});
 								  }

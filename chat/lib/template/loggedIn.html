@@ -162,6 +162,7 @@
 				ajaxChat.fillSoundSelection('soundChatBotSetting', ajaxChat.getSetting('soundChatBot'));
 				ajaxChat.fillSoundSelection('soundErrorSetting', ajaxChat.getSetting('soundError'));
 				ajaxChat.fillSoundSelection('soundPrivateSetting', ajaxChat.getSetting('soundPrivate'));
+				document.getElementById('whisperNotificationSetting').checked = ajaxChat.getSetting('whisperNotification');
 				document.getElementById('blinkSetting').checked = ajaxChat.getSetting('blink');
 				document.getElementById('blinkIntervalSetting').value = ajaxChat.getSetting('blinkInterval');
 				document.getElementById('blinkIntervalNumberSetting').value = ajaxChat.getSetting('blinkIntervalNumber');
@@ -398,6 +399,10 @@
 					<dl>
 						<dt><label for="soundPrivateSetting">[LANG]settingsSoundPrivate[/LANG]</label></dt>
 						<dd><select id="soundPrivateSetting" onchange="ajaxChat.setSetting('soundPrivate', this.options[this.selectedIndex].value);"><option value="">-</option></select><input type="image" src="img/pixel.gif" class="button playback" alt="[LANG]playSelectedSound[/LANG]" title="[LANG]playSelectedSound[/LANG]" onclick="ajaxChat.playSound(this.previousSibling.options[this.previousSibling.selectedIndex].value);"/></dd>
+					</dl>
+					<dl>
+						<dt><label for="whisperNotificationSetting">[LANG]settingsWhisperNotification[/LANG]</label></dt>
+						<dd><input type="checkbox" id="whisperNotificationSetting" onclick="ajaxChat.setSetting('whisperNotification', this.checked);"/></dd>
 					</dl>
 					<dl>
 						<dt><label for="blinkSetting">[LANG]settingsBlink[/LANG]</label></dt>

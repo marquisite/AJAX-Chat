@@ -1402,6 +1402,7 @@ var ajaxChat = {
 								  }
 							
 								  if (permission === "granted") {
+									var msg = messageParts.slice(1).join(' ')
 									var notification = new Notification("AJAX Chat whisper from " + userName, {
 										body: this.replaceCustomText(messageParts.slice(1).join(' ')),
 										tag:"AJAXChat"
